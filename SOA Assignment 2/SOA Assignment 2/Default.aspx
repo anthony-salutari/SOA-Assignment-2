@@ -36,7 +36,7 @@
         <asp:Button ID="topScorersSubmitButton" runat="server" Text="Submit" OnClick="topScorersSubmitButton_Click" />
         <br />
         <br />
-        <asp:Button ID="stadiumNamesButton" runat="server" Text="Get Stadium Names" />
+        <asp:Button ID="stadiumNamesButton" runat="server" Text="Get Stadium Names" OnClick="stadiumNamesButton_Click" />
         <br />
         <br />
         <asp:TextBox ID="stadiumNameBox" runat="server">Stadium name</asp:TextBox>

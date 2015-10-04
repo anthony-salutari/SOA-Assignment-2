@@ -61,8 +61,6 @@ namespace SOA_Assignment_2
             mTcpClient = new TcpClient();
             mHttpWebRequest = createFootballRequest();
             XmlDocument soapRequest = new XmlDocument();
-            WebResponse response;
-            StreamReader sr;
 
             soapRequest.LoadXml(@"<?xml version=""1.0"" encoding=""utf-8""?>
                 <soap:Envelope xmlns:soap=""http://schemas.xmlsoap.org/soap/envelope/"">
@@ -73,13 +71,7 @@ namespace SOA_Assignment_2
                   </soap:Body>
                 </soap:Envelope>");
 
-            Stream requestStream = mHttpWebRequest.GetRequestStream();
-            soapRequest.Save(requestStream);
-
-            response = mHttpWebRequest.GetResponse();
-
-            sr = new StreamReader(response.GetResponseStream());
-            string result = sr.ReadToEnd();
+            string result = getSoapResponse(soapRequest);
         }
 
         protected void topScorersSubmitButton_Click(object sender, EventArgs e)
@@ -87,8 +79,6 @@ namespace SOA_Assignment_2
             mTcpClient = new TcpClient();
             mHttpWebRequest = createFootballRequest();
             XmlDocument soapRequest = new XmlDocument();
-            WebResponse response;
-            StreamReader sr;
 
             soapRequest.LoadXml(@"<?xml version=""1.0"" encoding=""utf-8""?>
                 <soap:Envelope xmlns:soap=""http://schemas.xmlsoap.org/soap/envelope/"">
@@ -99,13 +89,24 @@ namespace SOA_Assignment_2
                   </soap:Body>
                 </soap:Envelope>");
 
-            Stream requestStream = mHttpWebRequest.GetRequestStream();
-            soapRequest.Save(requestStream);
+            string result = getSoapResponse(soapRequest);
+        }
 
-            response = mHttpWebRequest.GetResponse();
+        protected void stadiumNamesButton_Click(object sender, EventArgs e)
+        {
+            mTcpClient = new TcpClient();
+            mHttpWebRequest = createFootballRequest();
+            XmlDocument soapRequest = new XmlDocument();
 
-            sr = new StreamReader(response.GetResponseStream());
-            string result = sr.ReadToEnd();
+            soapRequest.LoadXml(@"<?xml version=""1.0"" encoding=""utf-8""?>
+                <soap:Envelope xmlns:soap=""http://schemas.xmlsoap.org/soap/envelope/"">
+                  <soap:Body>
+                    <StadiumNames xmlns=""http://footballpool.dataaccess.eu"">
+                    </StadiumNames>
+                  </soap:Body>
+                </soap:Envelope>");
+
+            string result = getSoapResponse(soapRequest);
         }
 
         protected void getCountryNamesByNameButton_Click(object sender, EventArgs e)
@@ -113,8 +114,6 @@ namespace SOA_Assignment_2
             mTcpClient = new TcpClient();
             mHttpWebRequest = createCountryInfoRequest();
             XmlDocument soapRequest = new XmlDocument();
-            WebResponse response;
-            StreamReader sr;
 
             soapRequest.LoadXml(@"<?xml version=""1.0"" encoding=""utf-8""?>
                 <soap:Envelope xmlns:soap=""http://schemas.xmlsoap.org/soap/envelope/"">
@@ -124,13 +123,7 @@ namespace SOA_Assignment_2
                   </soap:Body>
                 </soap:Envelope>");
 
-            Stream requestStream = mHttpWebRequest.GetRequestStream();
-            soapRequest.Save(requestStream);
-
-            response = mHttpWebRequest.GetResponse();
-
-            sr = new StreamReader(response.GetResponseStream());
-            string result = sr.ReadToEnd();
+            string result = getSoapResponse(soapRequest);
         }
 
         private HttpWebRequest createFootballRequest()
@@ -151,6 +144,21 @@ namespace SOA_Assignment_2
             webRequest.Accept = "text/xml";
             webRequest.Method = "POST";
             return webRequest;
+        }
+
+        private string getSoapResponse(XmlDocument soapRequest)
+        {
+            WebResponse response;
+            string result;
+            Stream requestStream = mHttpWebRequest.GetRequestStream();
+
+            soapRequest.Save(requestStream);
+            response = mHttpWebRequest.GetResponse();
+
+            StreamReader sr = new StreamReader(response.GetResponseStream());
+            result = sr.ReadToEnd();
+
+            return result;
         }
     }
 }
