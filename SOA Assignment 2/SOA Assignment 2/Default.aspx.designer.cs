@@ -49,13 +49,13 @@ namespace SOA_Assignment_2 {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl footballDiv;
         
         /// <summary>
-        /// Button1 control.
+        /// getAllPlayersButton control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Button1;
+        protected global::System.Web.UI.WebControls.Button getAllPlayersButton;
         
         /// <summary>
         /// topScorerPercentBox control.
@@ -67,22 +67,22 @@ namespace SOA_Assignment_2 {
         protected global::System.Web.UI.WebControls.TextBox topScorerPercentBox;
         
         /// <summary>
-        /// Button2 control.
+        /// topScorersSubmitButton control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Button2;
+        protected global::System.Web.UI.WebControls.Button topScorersSubmitButton;
         
         /// <summary>
-        /// Button3 control.
+        /// stadiumNamesButton control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Button3;
+        protected global::System.Web.UI.WebControls.Button stadiumNamesButton;
         
         /// <summary>
         /// stadiumNameBox control.
@@ -121,13 +121,13 @@ namespace SOA_Assignment_2 {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl countryInformationDiv;
         
         /// <summary>
-        /// Button6 control.
+        /// getCountryNamesByNameButton control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Button6;
+        protected global::System.Web.UI.WebControls.Button getCountryNamesByNameButton;
         
         /// <summary>
         /// capitalCodeBox control.

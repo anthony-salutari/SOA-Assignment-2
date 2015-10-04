@@ -14,7 +14,7 @@
 
     <div id="serviceSelection" runat="server">
         <h2>Select a service:</h2>
-            <asp:DropDownList ID="serviceDropdown" runat="server" AutoPostBack="True" OnSelectedIndexChanged="DropDownList1_SelectedIndexChanged">
+            <asp:DropDownList ID="serviceDropdown" runat="server" AutoPostBack="True" OnSelectedIndexChanged="serviceDropdown_SelectedIndexChanged">
                 <asp:ListItem>Choose a service...</asp:ListItem>
                 <asp:ListItem>Worldcup 2010 Football Championship</asp:ListItem>
                 <asp:ListItem>Country Information Web Service</asp:ListItem>
@@ -26,40 +26,41 @@
     <div id="footballDiv" runat="server">
         <h2>Worldcup 2010 Football Championship</h2>
         <br />
-        <asp:Button ID="Button1" runat="server" Text="Get All Player Names" />
+        <asp:Button ID="getAllPlayersButton" runat="server" Text="Get All Player Names" OnClick="getAllPlayersButton_Click" />
         <br />
         <br />
         
-        Get top <asp:TextBox ID="TextBox3" runat="server" Width="24px" TextMode="Number">0</asp:TextBox>
+        Get top <asp:TextBox ID="topScorerPercentBox" runat="server" Width="24px" MaxLength="3" TextMode="Number">0</asp:TextBox>
 &nbsp;% goal scorers&nbsp;&nbsp;
         
-        <asp:Button ID="Button2" runat="server" Text="Submit" />
+        <asp:Button ID="topScorersSubmitButton" runat="server" Text="Submit" OnClick="topScorersSubmitButton_Click" />
         <br />
         <br />
-        <asp:Button ID="Button3" runat="server" Text="Get Stadium Names" />
+        <asp:Button ID="stadiumNamesButton" runat="server" Text="Get Stadium Names" />
         <br />
         <br />
-        <asp:TextBox ID="TextBox2" runat="server">Stadium name</asp:TextBox>
+        <asp:TextBox ID="stadiumNameBox" runat="server">Stadium name</asp:TextBox>
 &nbsp;<asp:Button ID="Button4" runat="server" Text="Get Stadium Info" />
         <br />
         <br />
         <asp:Button ID="Button5" runat="server" Text="Get Team Info" />
+        <br />
         <br />
 
     </div>
 
     <div id="countryInformationDiv" runat="server">
         <h2>Country Information Service</h2>
-        <asp:Button ID="Button6" runat="server" Text="Get List Of Country Names By Name" />
+        <asp:Button ID="getCountryNamesByNameButton" runat="server" Text="Get List Of Country Names By Name" OnClick="getCountryNamesByNameButton_Click" />
         <br />
         <br />
         Get capital by country code
-        <asp:TextBox ID="TextBox4" runat="server" Width="22px">CA</asp:TextBox>
+        <asp:TextBox ID="capitalCodeBox" runat="server" Width="34px" MaxLength="3">CA</asp:TextBox>
 &nbsp;<asp:Button ID="Button7" runat="server" Text="Submit" />
         <br />
         <br />
         Get currencies by country code
-        <asp:TextBox ID="TextBox5" runat="server" Width="19px">CA</asp:TextBox>
+        <asp:TextBox ID="currenciesCodeBox" runat="server" Width="30px" MaxLength="3">CA</asp:TextBox>
 &nbsp;<asp:Button ID="Button8" runat="server" Text="Submit" />
         <br />
         <br />
@@ -73,25 +74,26 @@
     <div id="movieInformationDiv" runat="server">
         <h2>Movie Information</h2>
         Get theatres and movies: zip code
-        <asp:TextBox ID="TextBox7" runat="server" Width="42px" TextMode="Number">90210</asp:TextBox>
+        <asp:TextBox ID="zipCodeMovieBox" runat="server" Width="42px" MaxLength="5" TextMode="Number">90210</asp:TextBox>
 &nbsp;radius
-        <asp:TextBox ID="TextBox8" runat="server" Width="41px" TextMode="Number">50</asp:TextBox>
+        <asp:TextBox ID="radiusMovieBox" runat="server" Width="41px" TextMode="Number">50</asp:TextBox>
 &nbsp;<asp:Button ID="Button10" runat="server" Text="Submit" />
         <br />
         <br />
         Get upcoming movies: month
-        <asp:TextBox ID="TextBox9" runat="server" Width="25px" TextMode="Number">11</asp:TextBox>
+        <asp:TextBox ID="monthMovieBox" runat="server" Width="25px" MaxLength="2" TextMode="Number">11</asp:TextBox>
 &nbsp;year
-        <asp:TextBox ID="TextBox10" runat="server" Width="31px" TextMode="Number">2015</asp:TextBox>
+        <asp:TextBox ID="yearMovieBox" runat="server" Width="31px" MaxLength="4" TextMode="Number">2015</asp:TextBox>
 &nbsp;<asp:Button ID="Button11" runat="server" Text="Submit" />
+        <br />
         <br />
 
     </div>
 
     <div id="calculatorDiv" runat="server">
         <h2>Calculator</h2>
-        <asp:TextBox ID="TextBox11" runat="server" TextMode="Number">1</asp:TextBox>
-&nbsp;<asp:TextBox ID="TextBox12" runat="server" TextMode="Number">1</asp:TextBox>
+        <asp:TextBox ID="firstCalcNumberBox" runat="server" TextMode="Number">1</asp:TextBox>
+&nbsp;<asp:TextBox ID="secondCalcNumberBox" runat="server" TextMode="Number">1</asp:TextBox>
         <br />
         <br />
         <asp:Button ID="addButton" runat="server" Text="+" />
@@ -101,6 +103,7 @@
         <asp:Button ID="multiplyButton" runat="server" Text="*" />
 &nbsp;&nbsp;&nbsp;
         <asp:Button ID="subtractButton" runat="server" Text="-" />
+        <br />
     </div>
 
     </form>
