@@ -40,10 +40,10 @@
         <br />
         <br />
         <asp:TextBox ID="stadiumNameBox" runat="server">Stadium name</asp:TextBox>
-&nbsp;<asp:Button ID="Button4" runat="server" Text="Get Stadium Info" />
+&nbsp;<asp:Button ID="getStadiumInfoButton" runat="server" Text="Get Stadium Info" OnClick="getStadiumInfoButton_Click" />
         <br />
         <br />
-        <asp:Button ID="Button5" runat="server" Text="Get Team Info" />
+        <asp:Button ID="getTeamInfoButton" runat="server" Text="Get Team Info" OnClick="getTeamInfoButton_Click" />
         <br />
         <br />
 
@@ -56,17 +56,17 @@
         <br />
         Get capital by country code
         <asp:TextBox ID="capitalCodeBox" runat="server" Width="34px" MaxLength="3">CA</asp:TextBox>
-&nbsp;<asp:Button ID="Button7" runat="server" Text="Submit" />
+&nbsp;<asp:Button ID="capitalByCountryCodeButton" runat="server" Text="Submit" OnClick="capitalByCountryCodeButton_Click" />
         <br />
         <br />
         Get currencies by country code
         <asp:TextBox ID="currenciesCodeBox" runat="server" Width="30px" MaxLength="3">CA</asp:TextBox>
-&nbsp;<asp:Button ID="Button8" runat="server" Text="Submit" />
+&nbsp;<asp:Button ID="currenciesByCountryCodeButton" runat="server" Text="Submit" OnClick="currenciesByCountryCodeButton_Click" />
         <br />
         <br />
         Find ISO for country:
-        <asp:TextBox ID="TextBox6" runat="server">Canada</asp:TextBox>
-&nbsp;<asp:Button ID="Button9" runat="server" Text="Submit" />
+        <asp:TextBox ID="isoForCountryBox" runat="server">Canada</asp:TextBox>
+&nbsp;<asp:Button ID="isoForCountryButton" runat="server" Text="Submit" OnClick="isoForCountryButton_Click" />
         <br />
         <br />
     </div>
@@ -77,14 +77,14 @@
         <asp:TextBox ID="zipCodeMovieBox" runat="server" Width="42px" MaxLength="5" TextMode="Number">90210</asp:TextBox>
 &nbsp;radius
         <asp:TextBox ID="radiusMovieBox" runat="server" Width="41px" TextMode="Number">50</asp:TextBox>
-&nbsp;<asp:Button ID="Button10" runat="server" Text="Submit" />
+&nbsp;<asp:Button ID="theatresAndMoviesButton" runat="server" Text="Submit" OnClick="theatresAndMoviesButton_Click" />
         <br />
         <br />
         Get upcoming movies: month
         <asp:TextBox ID="monthMovieBox" runat="server" Width="25px" MaxLength="2" TextMode="Number">11</asp:TextBox>
 &nbsp;year
         <asp:TextBox ID="yearMovieBox" runat="server" Width="31px" MaxLength="4" TextMode="Number">2015</asp:TextBox>
-&nbsp;<asp:Button ID="Button11" runat="server" Text="Submit" />
+&nbsp;<asp:Button ID="upcomingMoviesButton" runat="server" Text="Submit" OnClick="upcomingMoviesButton_Click" />
         <br />
         <br />
 
@@ -96,13 +96,13 @@
 &nbsp;<asp:TextBox ID="secondCalcNumberBox" runat="server" TextMode="Number">1</asp:TextBox>
         <br />
         <br />
-        <asp:Button ID="addButton" runat="server" Text="+" />
+        <asp:Button ID="addButton" runat="server" Text="+" OnClick="addButton_Click" />
 &nbsp;&nbsp;&nbsp;
-        <asp:Button ID="divideButton" runat="server" Text="/" />
+        <asp:Button ID="divideButton" runat="server" Text="/" OnClick="divideButton_Click" />
 &nbsp;&nbsp;&nbsp;
-        <asp:Button ID="multiplyButton" runat="server" Text="*" />
+        <asp:Button ID="multiplyButton" runat="server" Text="*" OnClick="multiplyButton_Click" />
 &nbsp;&nbsp;&nbsp;
-        <asp:Button ID="subtractButton" runat="server" Text="-" />
+        <asp:Button ID="subtractButton" runat="server" Text="-" OnClick="subtractButton_Click" />
         <br />
     </div>
 

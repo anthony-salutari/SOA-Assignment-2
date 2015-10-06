@@ -94,22 +94,22 @@ namespace SOA_Assignment_2 {
         protected global::System.Web.UI.WebControls.TextBox stadiumNameBox;
         
         /// <summary>
-        /// Button4 control.
+        /// getStadiumInfoButton control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Button4;
+        protected global::System.Web.UI.WebControls.Button getStadiumInfoButton;
         
         /// <summary>
-        /// Button5 control.
+        /// getTeamInfoButton control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Button5;
+        protected global::System.Web.UI.WebControls.Button getTeamInfoButton;
         
         /// <summary>
         /// countryInformationDiv control.
@@ -139,13 +139,13 @@ namespace SOA_Assignment_2 {
         protected global::System.Web.UI.WebControls.TextBox capitalCodeBox;
         
         /// <summary>
-        /// Button7 control.
+        /// capitalByCountryCodeButton control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Button7;
+        protected global::System.Web.UI.WebControls.Button capitalByCountryCodeButton;
         
         /// <summary>
         /// currenciesCodeBox control.
@@ -157,31 +157,31 @@ namespace SOA_Assignment_2 {
         protected global::System.Web.UI.WebControls.TextBox currenciesCodeBox;
         
         /// <summary>
-        /// Button8 control.
+        /// currenciesByCountryCodeButton control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Button8;
+        protected global::System.Web.UI.WebControls.Button currenciesByCountryCodeButton;
         
         /// <summary>
-        /// TextBox6 control.
+        /// isoForCountryBox control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TextBox6;
+        protected global::System.Web.UI.WebControls.TextBox isoForCountryBox;
         
         /// <summary>
-        /// Button9 control.
+        /// isoForCountryButton control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Button9;
+        protected global::System.Web.UI.WebControls.Button isoForCountryButton;
         
         /// <summary>
         /// movieInformationDiv control.
@@ -211,13 +211,13 @@ namespace SOA_Assignment_2 {
         protected global::System.Web.UI.WebControls.TextBox radiusMovieBox;
         
         /// <summary>
-        /// Button10 control.
+        /// theatresAndMoviesButton control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Button10;
+        protected global::System.Web.UI.WebControls.Button theatresAndMoviesButton;
         
         /// <summary>
         /// monthMovieBox control.
@@ -238,13 +238,13 @@ namespace SOA_Assignment_2 {
         protected global::System.Web.UI.WebControls.TextBox yearMovieBox;
         
         /// <summary>
-        /// Button11 control.
+        /// upcomingMoviesButton control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Button11;
+        protected global::System.Web.UI.WebControls.Button upcomingMoviesButton;
         
         /// <summary>
         /// calculatorDiv control.

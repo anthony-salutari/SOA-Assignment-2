@@ -8,13 +8,26 @@ using System.Net;
 using System.Net.Sockets;
 using System.Xml;
 using System.IO;
+using System.Xml.Serialization;
 
 namespace SOA_Assignment_2
 {
     public partial class Default : System.Web.UI.Page
     {
-        TcpClient mTcpClient;
-        HttpWebRequest mHttpWebRequest;
+        WebServiceCaller webServiceCaller;
+
+        // football service consts
+        public const string footballServiceURL = "http://footballpool.dataaccess.eu/data/info.wso";
+        public const string footballServiceName = "Worldcup 2010 Football Championship";
+        // country info service consts
+        public const string countryInfoServiceURL = "http://webservices.oorsprong.org/websamples.countryinfo/CountryInfoService.wso";
+        public const string countryInfoServiceName = "Country Info Service";
+        // movie info service consts
+        public const string movieInfoServiceURL = "http://www.ignyte.com/webservices/ignyte.whatsshowing.webservice/moviefunctions.asmx";
+        public const string movieInfoServiceName = "Movie Information Service";
+        // calculator service consts
+        public const string calculatorServiceURL = "http://ws1.parasoft.com/glue/calculator";
+        public const string calculatorServiceName = "Calculator";
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -58,105 +71,197 @@ namespace SOA_Assignment_2
 
         protected void getAllPlayersButton_Click(object sender, EventArgs e)
         {
-            mTcpClient = new TcpClient();
-            mHttpWebRequest = createFootballRequest();
-            XmlDocument soapRequest = new XmlDocument();
+            string webServiceURL = footballServiceURL;
+            string webServiceName = footballServiceName;
+            string webMethodName = "AllPlayerNames";
+            object[] arguments = { false };
 
-            soapRequest.LoadXml(@"<?xml version=""1.0"" encoding=""utf-8""?>
-                <soap:Envelope xmlns:soap=""http://schemas.xmlsoap.org/soap/envelope/"">
-                  <soap:Body>
-                    <AllPlayerNames xmlns=""http://footballpool.dataaccess.eu"">
-                      <bSelected>false</bSelected>
-                    </AllPlayerNames>
-                  </soap:Body>
-                </soap:Envelope>");
-
-            string result = getSoapResponse(soapRequest);
+            object results = getResult(webServiceURL, webServiceName, webMethodName, arguments);
+            string xdoc = SerializeToXml(results);
         }
 
         protected void topScorersSubmitButton_Click(object sender, EventArgs e)
         {
-            mTcpClient = new TcpClient();
-            mHttpWebRequest = createFootballRequest();
-            XmlDocument soapRequest = new XmlDocument();
+            string webServiceURL = footballServiceURL;
+            string webServiceName = footballServiceName;
+            string webMethodName = "TopGoalScorers";
+            object[] arguments = { topScorerPercentBox.Text.ToString() };
 
-            soapRequest.LoadXml(@"<?xml version=""1.0"" encoding=""utf-8""?>
-                <soap:Envelope xmlns:soap=""http://schemas.xmlsoap.org/soap/envelope/"">
-                  <soap:Body>
-                    <TopGoalScorers xmlns=""http://footballpool.dataaccess.eu"">
-                      <iTopN>" + topScorerPercentBox.Text.ToString() + @"</iTopN>
-                    </TopGoalScorers>
-                  </soap:Body>
-                </soap:Envelope>");
-
-            string result = getSoapResponse(soapRequest);
+            object results = getResult(webServiceURL, webServiceName, webMethodName, arguments);
+            string xdoc = SerializeToXml(results);
         }
 
         protected void stadiumNamesButton_Click(object sender, EventArgs e)
         {
-            mTcpClient = new TcpClient();
-            mHttpWebRequest = createFootballRequest();
-            XmlDocument soapRequest = new XmlDocument();
+            string webServiceURL = footballServiceURL;
+            string webServiceName = footballServiceName;
+            string webMethodName = "StadiumNames";
+            object[] arguments = null;
 
-            soapRequest.LoadXml(@"<?xml version=""1.0"" encoding=""utf-8""?>
-                <soap:Envelope xmlns:soap=""http://schemas.xmlsoap.org/soap/envelope/"">
-                  <soap:Body>
-                    <StadiumNames xmlns=""http://footballpool.dataaccess.eu"">
-                    </StadiumNames>
-                  </soap:Body>
-                </soap:Envelope>");
+            object results = getResult(webServiceURL, webServiceName, webMethodName, arguments);
+            string xdoc = SerializeToXml(results);
+        }
 
-            string result = getSoapResponse(soapRequest);
+        protected void getStadiumInfoButton_Click(object sender, EventArgs e)
+        {
+            string webServiceURL = footballServiceURL;
+            string webServiceName = footballServiceName;
+            string webMethodName = "StadiumInfo";
+            object[] arguments = { stadiumNameBox.Text.ToString() };
+
+            object results = getResult(webServiceURL, webServiceName, webMethodName, arguments);
+            string xdoc = SerializeToXml(results);
+        }
+
+        protected void getTeamInfoButton_Click(object sender, EventArgs e)
+        {
+            string webServiceURL = footballServiceURL;
+            string webServiceName = footballServiceName;
+            string webMethodName = "Teams";
+            object[] arguments = null;
+
+            object results = getResult(webServiceURL, webServiceName, webMethodName, arguments);
+            string xdoc = SerializeToXml(results);
         }
 
         protected void getCountryNamesByNameButton_Click(object sender, EventArgs e)
         {
-            mTcpClient = new TcpClient();
-            mHttpWebRequest = createCountryInfoRequest();
-            XmlDocument soapRequest = new XmlDocument();
+            string webServiceURL = countryInfoServiceURL;
+            string webServiceName = countryInfoServiceName;
+            string webMethodName = "ListOfCountryNamesByName";
+            object[] arguments = null;
 
-            soapRequest.LoadXml(@"<?xml version=""1.0"" encoding=""utf-8""?>
-                <soap:Envelope xmlns:soap=""http://schemas.xmlsoap.org/soap/envelope/"">
-                  <soap:Body>
-                    <ListOfCountryNamesByName xmlns=""http://www.oorsprong.org/websamples.countryinfo"">
-                    </ListOfCountryNamesByName>
-                  </soap:Body>
-                </soap:Envelope>");
-
-            string result = getSoapResponse(soapRequest);
+            object results = getResult(webServiceURL, webServiceName, webMethodName, arguments);
+            string xdoc = SerializeToXml(results);
         }
 
-        private HttpWebRequest createFootballRequest()
+        protected void capitalByCountryCodeButton_Click(object sender, EventArgs e)
         {
-            HttpWebRequest webRequest = (HttpWebRequest)WebRequest.Create(@"http://footballpool.dataaccess.eu/data/info.wso");
-            webRequest.Headers.Add(@"SOAP:action");
-            webRequest.ContentType = "text/xml;charset=\"utf-8\"";
-            webRequest.Accept = "text/xml";
-            webRequest.Method = "POST";
-            return webRequest;
+            string webServiceURL = countryInfoServiceURL;
+            string webServiceName = countryInfoServiceName;
+            string webMethodName = "CapitalCity";
+            object[] arguments = { capitalCodeBox.Text.ToString() };
+
+            object results = getResult(webServiceURL, webServiceName, webMethodName, arguments);
+            string xdoc = SerializeToXml(results);
         }
 
-        private HttpWebRequest createCountryInfoRequest()
+        protected void currenciesByCountryCodeButton_Click(object sender, EventArgs e)
         {
-            HttpWebRequest webRequest = (HttpWebRequest)WebRequest.Create(@"http://webservices.oorsprong.org/websamples.countryinfo/CountryInfoService.wso");
-            webRequest.Headers.Add(@"SOAP:action");
-            webRequest.ContentType = "text/xml;charset=\"utf-8\"";
-            webRequest.Accept = "text/xml";
-            webRequest.Method = "POST";
-            return webRequest;
+            string webServiceURL = countryInfoServiceURL;
+            string webServiceName = countryInfoServiceName;
+            string webMethodName = "ListOfCurrenciesByCode";
+            object[] arguments = { currenciesCodeBox.Text.ToString() };
+
+            object results = getResult(webServiceURL, webServiceName, webMethodName, arguments);
+            string xdoc = SerializeToXml(results);
         }
 
-        private string getSoapResponse(XmlDocument soapRequest)
+        protected void isoForCountryButton_Click(object sender, EventArgs e)
         {
-            WebResponse response;
-            string result;
-            Stream requestStream = mHttpWebRequest.GetRequestStream();
+            string webServiceURL = countryInfoServiceURL;
+            string webServiceName = countryInfoServiceName;
+            string webMethodName = "CountryISOCode";
+            object[] arguments = { isoForCountryBox.Text.ToString() };
 
-            soapRequest.Save(requestStream);
-            response = mHttpWebRequest.GetResponse();
+            object results = getResult(webServiceURL, webServiceName, webMethodName, arguments);
+            string xdoc = SerializeToXml(results);
+        }
 
-            StreamReader sr = new StreamReader(response.GetResponseStream());
-            result = sr.ReadToEnd();
+        protected void theatresAndMoviesButton_Click(object sender, EventArgs e)
+        {
+            string webServiceURL = movieInfoServiceURL;
+            string webServiceName = movieInfoServiceName;
+            string webMethodName = "GetTheatresAndMovies";
+            object[] arguments = { zipCodeMovieBox.Text.ToString(),
+                Convert.ToInt32(radiusMovieBox.Text.ToString()) };
+
+            object results = getResult(webServiceURL, webServiceName, webMethodName, arguments);
+            string xdoc = SerializeToXml(results);
+        }
+
+        protected void upcomingMoviesButton_Click(object sender, EventArgs e)
+        {
+            string webServiceURL = movieInfoServiceURL;
+            string webServiceName = movieInfoServiceName;
+            string webMethodName = "GetUpcomingMovies";
+            object[] arguments = { Convert.ToInt32(monthMovieBox.Text.ToString()),
+                Convert.ToInt32(yearMovieBox.Text.ToString()) };
+
+            object results = getResult(webServiceURL, webServiceName, webMethodName, arguments);
+            string xdoc = SerializeToXml(results);
+        }
+
+        protected void addButton_Click(object sender, EventArgs e)
+        {
+            string webServiceURL = calculatorServiceURL;
+            string webServiceName = calculatorServiceName;
+            string webMethodName = "add";
+            object[] arguments = { float.Parse(firstCalcNumberBox.Text.ToString()),
+                float.Parse(secondCalcNumberBox.Text.ToString()) };
+
+            object results = getResult(webServiceURL, webServiceName, webMethodName, arguments);
+            string xdoc = SerializeToXml(results);
+        }
+
+        protected void divideButton_Click(object sender, EventArgs e)
+        {
+            string webServiceURL = calculatorServiceURL;
+            string webServiceName = calculatorServiceName;
+            string webMethodName = "divide";
+            object[] arguments = { float.Parse(firstCalcNumberBox.Text.ToString()),
+                float.Parse(secondCalcNumberBox.Text.ToString()) };
+
+            object results = getResult(webServiceURL, webServiceName, webMethodName, arguments);
+            string xdoc = SerializeToXml(results);
+        }
+
+        protected void multiplyButton_Click(object sender, EventArgs e)
+        {
+            string webServiceURL = calculatorServiceURL;
+            string webServiceName = calculatorServiceName;
+            string webMethodName = "multiply";
+            object[] arguments = { float.Parse(firstCalcNumberBox.Text.ToString()),
+                float.Parse(secondCalcNumberBox.Text.ToString()) };
+
+            object results = getResult(webServiceURL, webServiceName, webMethodName, arguments);
+            string xdoc = SerializeToXml(results);
+        }
+
+        protected void subtractButton_Click(object sender, EventArgs e)
+        {
+            string webServiceURL = calculatorServiceURL;
+            string webServiceName = calculatorServiceName;
+            string webMethodName = "subtract";
+            object[] arguments = { float.Parse(firstCalcNumberBox.Text.ToString()),
+                float.Parse(secondCalcNumberBox.Text.ToString()) };
+
+            object results = getResult(webServiceURL, webServiceName, webMethodName, arguments);
+            string xdoc = SerializeToXml(results);
+        }
+
+        public object getResult(string webServiceURL, string webServiceName, string webMethodName, object[] arguments)
+        {
+            webServiceCaller = new WebServiceCaller();
+            object results;
+
+            results = webServiceCaller.CallWebMethod(webServiceURL, webServiceName, webMethodName, arguments);
+
+            return results;
+        }
+
+        public string SerializeToXml(object input)
+        {
+            XmlSerializer ser = new XmlSerializer(input.GetType());
+            string result = string.Empty;
+
+            using (MemoryStream memStm = new MemoryStream())
+            {
+                ser.Serialize(memStm, input);
+
+                memStm.Position = 0;
+                result = new StreamReader(memStm).ReadToEnd();
+            }
 
             return result;
         }
