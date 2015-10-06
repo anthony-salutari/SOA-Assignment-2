@@ -72,6 +72,7 @@ namespace SOA_Assignment_2
 
         protected void getAllPlayersButton_Click(object sender, EventArgs e)
         {
+            footballDiv.Visible = true;
             XmlDocument xmlDoc = new XmlDocument();
             string webServiceURL = footballServiceURL;
             string webServiceName = footballServiceName;
@@ -98,10 +99,19 @@ namespace SOA_Assignment_2
                     }
                 }
             }
+
+            footballResultsBox.Text = "";
+
+            foreach (string player in playerNames)
+            {
+                footballResultsBox.Text += player;
+                footballResultsBox.Text += Environment.NewLine;
+            }
         }
 
         protected void topScorersSubmitButton_Click(object sender, EventArgs e)
         {
+            footballDiv.Visible = true;
             XmlDocument xmlDoc = new XmlDocument();
             string webServiceURL = footballServiceURL;
             string webServiceName = footballServiceName;
@@ -128,10 +138,19 @@ namespace SOA_Assignment_2
                     }
                 }
             }
+
+            footballResultsBox.Text = "";
+
+            foreach (string player in playerNames)
+            {
+                footballResultsBox.Text += player;
+                footballResultsBox.Text += Environment.NewLine;
+            }
         }
 
         protected void stadiumNamesButton_Click(object sender, EventArgs e)
         {
+            footballDiv.Visible = true;
             XmlDocument xmlDoc = new XmlDocument();
             string webServiceURL = footballServiceURL;
             string webServiceName = footballServiceName;
@@ -149,15 +168,30 @@ namespace SOA_Assignment_2
             {
                 stadiumNames.Add(node.InnerText);
             }
+
+            footballResultsBox.Text = "";
+
+            foreach (string stadium in stadiumNames)
+            {
+                footballResultsBox.Text += stadium;
+                footballResultsBox.Text += Environment.NewLine;
+            }
         }
 
         protected void getStadiumInfoButton_Click(object sender, EventArgs e)
         {
+            footballDiv.Visible = true;
             XmlDocument xmlDoc = new XmlDocument();
             string webServiceURL = footballServiceURL;
             string webServiceName = footballServiceName;
             string webMethodName = "StadiumInfo";
             object[] arguments = { stadiumNameBox.Text.ToString() };
+
+            string stadiumName = null;
+            int seatCapacity = 0;
+            string cityName = null;
+            string wikiLink = null;
+            string mapLink = null;
 
             object results = getResult(webServiceURL, webServiceName, webMethodName, arguments);
             string xdoc = SerializeToXml(results);
@@ -173,30 +207,46 @@ namespace SOA_Assignment_2
                 {
                     if (child.Name == "sStadiumName")
                     {
-                        string stadiumName = child.InnerText;
+                        stadiumName = child.InnerText;
                     }
                     else if (child.Name == "iSeatsCapacity")
                     {
-                        int seatCapacity = Convert.ToInt32(child.InnerText);
+                        seatCapacity = Convert.ToInt32(child.InnerText);
                     }
                     else if (child.Name == "sCityName")
                     {
-                        string cityName = child.InnerText;
+                        cityName = child.InnerText;
                     }
                     else if (child.Name == "sWikipediaURL")
                     {
-                        string wikiLink = child.InnerText;
+                        wikiLink = child.InnerText;
                     }
                     else if (child.Name == "sGoogleMapsURL")
                     {
-                        string mapLink = child.InnerText;
+                        mapLink = child.InnerText;
                     }
                 }
+            }
+            
+            footballResultsBox.Text = "";
+
+            if (stadiumName != null && seatCapacity != 0 && cityName != null && wikiLink != null && mapLink != null)
+            {
+                footballResultsBox.Text += "Stadium name: " + stadiumName;
+                footballResultsBox.Text += Environment.NewLine;
+                footballResultsBox.Text += "Seats capacity: " + seatCapacity.ToString();
+                footballResultsBox.Text += Environment.NewLine;
+                footballResultsBox.Text += "City name: " + cityName;
+                footballResultsBox.Text += Environment.NewLine;
+                footballResultsBox.Text += "Wikipedia URL: " + wikiLink;
+                footballResultsBox.Text += Environment.NewLine;
+                footballResultsBox.Text += "Google map link: " + mapLink;
             }
         }
 
         protected void getTeamInfoButton_Click(object sender, EventArgs e)
         {
+            footballDiv.Visible = true;
             XmlDocument xmlDoc = new XmlDocument();
             string webServiceURL = footballServiceURL;
             string webServiceName = footballServiceName;
@@ -233,96 +283,306 @@ namespace SOA_Assignment_2
                     }
                 }
             }
+
+            footballResultsBox.Text = "";
+
+            for (int i = 0; i < name.Count; i++)
+            {
+                footballResultsBox.Text += "Team name: " + name[i];
+                footballResultsBox.Text += Environment.NewLine;
+                footballResultsBox.Text += "Wikipedia link: " + wikiLink[i];
+                footballResultsBox.Text += Environment.NewLine;
+                footballResultsBox.Text += "Flag Link: " + flagLink[i];
+                footballResultsBox.Text += Environment.NewLine;
+            }
         }
 
         protected void getCountryNamesByNameButton_Click(object sender, EventArgs e)
         {
+            countryInformationDiv.Visible = true;
+            XmlDocument xmlDoc = new XmlDocument();
             string webServiceURL = countryInfoServiceURL;
             string webServiceName = countryInfoServiceName;
             string webMethodName = "ListOfCountryNamesByName";
             object[] arguments = null;
 
+            ArrayList isoCodes = new ArrayList();
+            ArrayList countryNames = new ArrayList();
+
             object results = getResult(webServiceURL, webServiceName, webMethodName, arguments);
             string xdoc = SerializeToXml(results);
+            xmlDoc.LoadXml(xdoc);
+
+            XmlNodeList nodes = xmlDoc.GetElementsByTagName("tCountryCodeAndName");
+
+            foreach (XmlNode node in nodes)
+            {
+                XmlNodeList children = node.ChildNodes;
+
+                foreach (XmlNode child in children)
+                {
+                    if (child.Name == "sISOCode")
+                    {
+                        isoCodes.Add(child.InnerText);
+                    }
+                    else if (child.Name == "sName")
+                    {
+                        countryNames.Add(child.InnerText);
+                    }
+                }
+            }
+
+            countryInfoResultsBox.Text = "";
+
+            for (int i = 0; i < isoCodes.Count; i++)
+            {
+                countryInfoResultsBox.Text += "Iso code: " + isoCodes[i];
+                countryInfoResultsBox.Text += Environment.NewLine;
+                countryInfoResultsBox.Text += "Country name: " + countryNames[i];
+                countryInfoResultsBox.Text += Environment.NewLine;
+            }
         }
 
         protected void capitalByCountryCodeButton_Click(object sender, EventArgs e)
         {
+            countryInformationDiv.Visible = true;
+            XmlDocument xmlDoc = new XmlDocument();
             string webServiceURL = countryInfoServiceURL;
             string webServiceName = countryInfoServiceName;
             string webMethodName = "CapitalCity";
             object[] arguments = { capitalCodeBox.Text.ToString() };
 
+            string capitalCity = null;
+
             object results = getResult(webServiceURL, webServiceName, webMethodName, arguments);
             string xdoc = SerializeToXml(results);
+            xmlDoc.LoadXml(xdoc);
+
+            XmlNodeList nodes = xmlDoc.GetElementsByTagName("string");
+
+            foreach (XmlNode node in nodes)
+            {
+                capitalCity = node.InnerText;
+            }
+
+            countryInfoResultsBox.Text = "";
+
+            if (capitalCity != null)
+            {
+                countryInfoResultsBox.Text = capitalCity;
+            }
         }
 
         protected void currenciesByCountryCodeButton_Click(object sender, EventArgs e)
         {
+            countryInformationDiv.Visible = true;
+            XmlDocument xmlDoc = new XmlDocument();
             string webServiceURL = countryInfoServiceURL;
             string webServiceName = countryInfoServiceName;
             string webMethodName = "ListOfCurrenciesByCode";
-            object[] arguments = { currenciesCodeBox.Text.ToString() };
+            object[] arguments = null; 
+
+            ArrayList isoCodes = new ArrayList();
+            ArrayList currencyNames = new ArrayList();
 
             object results = getResult(webServiceURL, webServiceName, webMethodName, arguments);
             string xdoc = SerializeToXml(results);
+            xmlDoc.LoadXml(xdoc);
+
+            XmlNodeList nodes = xmlDoc.GetElementsByTagName("tCurrency");
+
+            foreach (XmlNode node in nodes)
+            {
+                XmlNodeList children = node.ChildNodes;
+
+                foreach (XmlNode child in children)
+                {
+                    if (child.Name == "sISOCode")
+                    {
+                        // check if there is an iso code to prevent an exception
+                        if (child.InnerText != "")
+                        {
+                            isoCodes.Add(child.InnerText);
+                        }
+                        else
+                        {
+                            isoCodes.Add("N/A");
+                        }
+                    }
+                    else if (child.Name == "sName")
+                    {
+                        currencyNames.Add(child.InnerText);
+                    }
+                }
+            }
+
+            countryInfoResultsBox.Text = "";
+
+            for (int i = 0; i < isoCodes.Count; i++)
+            {
+                countryInfoResultsBox.Text += "ISO code: " + isoCodes[i];
+                countryInfoResultsBox.Text += Environment.NewLine;
+                countryInfoResultsBox.Text += "Currency: " + currencyNames[i];
+                countryInfoResultsBox.Text += Environment.NewLine;
+            }
         }
 
         protected void isoForCountryButton_Click(object sender, EventArgs e)
         {
+            countryInformationDiv.Visible = true;
+            XmlDocument xmlDoc = new XmlDocument();
             string webServiceURL = countryInfoServiceURL;
             string webServiceName = countryInfoServiceName;
             string webMethodName = "CountryISOCode";
             object[] arguments = { isoForCountryBox.Text.ToString() };
 
+            string isoCode = null;
+
             object results = getResult(webServiceURL, webServiceName, webMethodName, arguments);
             string xdoc = SerializeToXml(results);
+            xmlDoc.LoadXml(xdoc);
+
+            XmlNodeList nodes = xmlDoc.GetElementsByTagName("string");
+
+            foreach (XmlNode node in nodes)
+            {
+                isoCode = node.InnerText;
+            }
+
+            countryInfoResultsBox.Text = "";
+
+            if (isoCode != null)
+            {
+                countryInfoResultsBox.Text += isoCode;
+            }
         }
 
         protected void theatresAndMoviesButton_Click(object sender, EventArgs e)
         {
+            XmlDocument xmlDoc = new XmlDocument();
             string webServiceURL = movieInfoServiceURL;
             string webServiceName = movieInfoServiceName;
             string webMethodName = "GetTheatresAndMovies";
             object[] arguments = { zipCodeMovieBox.Text.ToString(),
                 Convert.ToInt32(radiusMovieBox.Text.ToString()) };
+            int i = 0;
+            string[] movieList = null;
+
+            Dictionary<KeyValuePair<string, string>, string[]> theatres = new Dictionary<KeyValuePair<string, string>, string[]>();
 
             object results = getResult(webServiceURL, webServiceName, webMethodName, arguments);
             string xdoc = SerializeToXml(results);
+            xmlDoc.LoadXml(xdoc);
+
+            XmlNodeList nodes = xmlDoc.GetElementsByTagName("Theater");
+
+            foreach (XmlNode node in nodes)
+            {
+                XmlNodeList children = node.ChildNodes;
+
+                foreach (XmlNode child in children)
+                {        
+                    if (child.Name == "Name")
+                    {
+                        string theaterName = child.InnerText;   
+                    }
+                    else if (child.Name == "Address")
+                    {
+                        string theaterAddress = child.InnerText;
+                    }
+                    else if (child.Name == "Movie")
+                    {
+                        i++;
+                        movieList[i] = child.InnerText;
+                    }
+                }
+            }
         }
 
         protected void upcomingMoviesButton_Click(object sender, EventArgs e)
         {
+            XmlDocument xmlDoc = new XmlDocument();
             string webServiceURL = movieInfoServiceURL;
             string webServiceName = movieInfoServiceName;
             string webMethodName = "GetUpcomingMovies";
             object[] arguments = { Convert.ToInt32(monthMovieBox.Text.ToString()),
                 Convert.ToInt32(yearMovieBox.Text.ToString()) };
 
+            ArrayList upcomingMovies = new ArrayList();
+
             object results = getResult(webServiceURL, webServiceName, webMethodName, arguments);
             string xdoc = SerializeToXml(results);
+
+            xmlDoc.LoadXml(xdoc);
+
+            XmlNodeList nodes = xmlDoc.GetElementsByTagName("MovieName");
+
+            foreach (XmlNode node in nodes)
+            {
+                upcomingMovies.Add(node.InnerText);
+            }
         }
 
         protected void convertToFahrenheitButton_Click(object sender, EventArgs e)
         {
+            tempConvertDiv.Visible = true;
+            XmlDocument xmlDoc = new XmlDocument();
             string webServiceURL = tempConvertServiceURL;
             string webServiceName = tempConvertServiceName;
             string webMethodName = "CelsiusToFahrenheit";
             object[] arguments = { celciusBox.Text.ToString() };
 
+            string result = null;
+
             object results = getResult(webServiceURL, webServiceName, webMethodName, arguments);
             string xdoc = SerializeToXml(results);
+
+            xmlDoc.LoadXml(xdoc);
+
+            XmlNodeList nodes = xmlDoc.GetElementsByTagName("string");
+
+            foreach (XmlNode node in nodes)
+            {
+                result = node.InnerText;
+            }
+
+            tempConvertResultBox.Text = "";
+
+            if (result != null)
+            {
+                tempConvertResultBox.Text = result;
+            }
         }
 
         protected void convertToCelciusButton_Click(object sender, EventArgs e)
         {
+            tempConvertDiv.Visible = true;
+            XmlDocument xmlDoc = new XmlDocument();
             string webServiceURL = tempConvertServiceURL;
             string webServiceName = tempConvertServiceName;
             string webMethodName = "FahrenheitToCelcius";
             object[] arguments = { fahrenheitBox.Text.ToString() };
 
+            string result = null;
+
             object results = getResult(webServiceURL, webServiceName, webMethodName, arguments);
             string xdoc = SerializeToXml(results);
+
+            xmlDoc.LoadXml(xdoc);
+
+            XmlNodeList nodes = xmlDoc.GetElementsByTagName("string");
+
+            foreach (XmlNode node in nodes)
+            {
+                result = node.InnerText;
+            }
+
+            tempConvertResultBox.Text = "";
+
+            if (result != null)
+            {
+                tempConvertResultBox.Text = result;
+            }
         }
 
         public object getResult(string webServiceURL, string webServiceName, string webMethodName, object[] arguments)
@@ -331,7 +591,7 @@ namespace SOA_Assignment_2
             object results;
 
             results = webServiceCaller.CallWebMethod(webServiceURL, webServiceName, webMethodName, arguments);
-
+            
             return results;
         }
 

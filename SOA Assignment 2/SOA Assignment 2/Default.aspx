@@ -31,7 +31,7 @@
         <br />
         
         Get top <asp:TextBox ID="topScorerPercentBox" runat="server" Width="40px" MaxLength="3" TextMode="Number">0</asp:TextBox>
-&nbsp;% goal scorers&nbsp;&nbsp;
+&nbsp;goal scorers&nbsp;&nbsp;
         
         <asp:Button ID="topScorersSubmitButton" runat="server" Text="Submit" OnClick="topScorersSubmitButton_Click" />
         <br />
@@ -47,6 +47,15 @@
         <br />
         <br />
 
+        <div id="footBallResultsDiv" runat="server">
+
+
+            <asp:TextBox ID="footballResultsBox" runat="server" Height="228px" TextMode="MultiLine" Width="568px"></asp:TextBox>
+            <br />
+
+
+        </div>
+
     </div>
 
     <div id="countryInformationDiv" runat="server">
@@ -59,15 +68,21 @@
 &nbsp;<asp:Button ID="capitalByCountryCodeButton" runat="server" Text="Submit" OnClick="capitalByCountryCodeButton_Click" />
         <br />
         <br />
-        Get currencies by country code
-        <asp:TextBox ID="currenciesCodeBox" runat="server" Width="30px" MaxLength="3">CA</asp:TextBox>
-&nbsp;<asp:Button ID="currenciesByCountryCodeButton" runat="server" Text="Submit" OnClick="currenciesByCountryCodeButton_Click" />
+        <asp:Button ID="currenciesByCountryCodeButton" runat="server" Text="Get currencies by country code" OnClick="currenciesByCountryCodeButton_Click" />
         <br />
         <br />
         Find ISO for country:
         <asp:TextBox ID="isoForCountryBox" runat="server">Canada</asp:TextBox>
 &nbsp;<asp:Button ID="isoForCountryButton" runat="server" Text="Submit" OnClick="isoForCountryButton_Click" />
         <br />
+        <br />
+        <div id="countryInformationResultsDiv" runat="server">
+
+
+            <asp:TextBox ID="countryInfoResultsBox" runat="server" Height="228px" TextMode="MultiLine" Width="568px"></asp:TextBox>
+
+
+        </div>
         <br />
     </div>
 
@@ -100,6 +115,15 @@
         Enter fahrenheit
         <asp:TextBox ID="fahrenheitBox" runat="server" TextMode="Number">85</asp:TextBox>
 &nbsp;<asp:Button ID="convertToCelciusButton" runat="server" OnClick="convertToCelciusButton_Click" Text="Convert to celcius" />
+        <br />
+        <br />
+        <div id="tempConvertResultsDiv" runat="server">
+
+
+            <asp:TextBox ID="tempConvertResultBox" runat="server"></asp:TextBox>
+
+
+        </div>
         <br />
 
     </div>

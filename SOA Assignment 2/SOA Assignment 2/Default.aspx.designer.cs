@@ -112,6 +112,24 @@ namespace SOA_Assignment_2 {
         protected global::System.Web.UI.WebControls.Button getTeamInfoButton;
         
         /// <summary>
+        /// footBallResultsDiv control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl footBallResultsDiv;
+        
+        /// <summary>
+        /// footballResultsBox control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox footballResultsBox;
+        
+        /// <summary>
         /// countryInformationDiv control.
         /// </summary>
         /// <remarks>
@@ -148,15 +166,6 @@ namespace SOA_Assignment_2 {
         protected global::System.Web.UI.WebControls.Button capitalByCountryCodeButton;
         
         /// <summary>
-        /// currenciesCodeBox control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox currenciesCodeBox;
-        
-        /// <summary>
         /// currenciesByCountryCodeButton control.
         /// </summary>
         /// <remarks>
@@ -182,6 +191,24 @@ namespace SOA_Assignment_2 {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button isoForCountryButton;
+        
+        /// <summary>
+        /// countryInformationResultsDiv control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl countryInformationResultsDiv;
+        
+        /// <summary>
+        /// countryInfoResultsBox control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox countryInfoResultsBox;
         
         /// <summary>
         /// movieInformationDiv control.
@@ -290,5 +317,23 @@ namespace SOA_Assignment_2 {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button convertToCelciusButton;
+        
+        /// <summary>
+        /// tempConvertResultsDiv control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl tempConvertResultsDiv;
+        
+        /// <summary>
+        /// tempConvertResultBox control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox tempConvertResultBox;
     }
 }
