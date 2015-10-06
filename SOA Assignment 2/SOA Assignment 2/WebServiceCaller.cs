@@ -41,7 +41,7 @@ namespace SOA_Assignment_2
                 //This gets the WSDL file...
                 ServiceDescription webServiceDescription = ServiceDescription.Read(serviceStream);
                 //Initalize the importer...
-                webServiceImporter.ProtocolName = "Soap12";
+                webServiceImporter.ProtocolName = "Soap";
                 webServiceImporter.AddServiceDescription(webServiceDescription, null, null);
 
                 //Generate the proxy code

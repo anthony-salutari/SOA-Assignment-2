@@ -247,66 +247,48 @@ namespace SOA_Assignment_2 {
         protected global::System.Web.UI.WebControls.Button upcomingMoviesButton;
         
         /// <summary>
-        /// calculatorDiv control.
+        /// tempConvertDiv control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl calculatorDiv;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl tempConvertDiv;
         
         /// <summary>
-        /// firstCalcNumberBox control.
+        /// celciusBox control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox firstCalcNumberBox;
+        protected global::System.Web.UI.WebControls.TextBox celciusBox;
         
         /// <summary>
-        /// secondCalcNumberBox control.
+        /// convertToFahrenheitButton control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox secondCalcNumberBox;
+        protected global::System.Web.UI.WebControls.Button convertToFahrenheitButton;
         
         /// <summary>
-        /// addButton control.
+        /// fahrenheitBox control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button addButton;
+        protected global::System.Web.UI.WebControls.TextBox fahrenheitBox;
         
         /// <summary>
-        /// divideButton control.
+        /// convertToCelciusButton control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button divideButton;
-        
-        /// <summary>
-        /// multiplyButton control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button multiplyButton;
-        
-        /// <summary>
-        /// subtractButton control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button subtractButton;
+        protected global::System.Web.UI.WebControls.Button convertToCelciusButton;
     }
 }

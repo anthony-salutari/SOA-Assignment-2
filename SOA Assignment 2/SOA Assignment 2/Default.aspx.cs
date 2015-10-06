@@ -9,6 +9,7 @@ using System.Net.Sockets;
 using System.Xml;
 using System.IO;
 using System.Xml.Serialization;
+using System.Collections;
 
 namespace SOA_Assignment_2
 {
@@ -18,23 +19,23 @@ namespace SOA_Assignment_2
 
         // football service consts
         public const string footballServiceURL = "http://footballpool.dataaccess.eu/data/info.wso";
-        public const string footballServiceName = "Worldcup 2010 Football Championship";
+        public const string footballServiceName = "Info";
         // country info service consts
         public const string countryInfoServiceURL = "http://webservices.oorsprong.org/websamples.countryinfo/CountryInfoService.wso";
-        public const string countryInfoServiceName = "Country Info Service";
+        public const string countryInfoServiceName = "CountryInfoService";
         // movie info service consts
         public const string movieInfoServiceURL = "http://www.ignyte.com/webservices/ignyte.whatsshowing.webservice/moviefunctions.asmx";
-        public const string movieInfoServiceName = "Movie Information Service";
-        // calculator service consts
-        public const string calculatorServiceURL = "http://ws1.parasoft.com/glue/calculator";
-        public const string calculatorServiceName = "Calculator";
+        public const string movieInfoServiceName = "MovieInformation";
+        // temp convert service consts
+        public const string tempConvertServiceURL = "http://www.w3schools.com/webservices/tempconvert.asmx";
+        public const string tempConvertServiceName = "TempConvert";
 
         protected void Page_Load(object sender, EventArgs e)
         {
             footballDiv.Visible = false;
             countryInformationDiv.Visible = false;
             movieInformationDiv.Visible = false;
-            calculatorDiv.Visible = false;
+            tempConvertDiv.Visible = false;
         }
 
         protected void serviceDropdown_SelectedIndexChanged(object sender, EventArgs e)
@@ -44,25 +45,25 @@ namespace SOA_Assignment_2
                 footballDiv.Visible = true;
                 countryInformationDiv.Visible = false;
                 movieInformationDiv.Visible = false;
-                calculatorDiv.Visible = false;
+                tempConvertDiv.Visible = false;
             }
             else if(serviceDropdown.SelectedIndex == 2)
             {
                 countryInformationDiv.Visible = true;
                 footballDiv.Visible = false;
                 movieInformationDiv.Visible = false;
-                calculatorDiv.Visible = false;
+                tempConvertDiv.Visible = false;
             }
             else if(serviceDropdown.SelectedIndex == 3)
             {
                 movieInformationDiv.Visible = true;
                 footballDiv.Visible = false;
                 countryInformationDiv.Visible = false;
-                calculatorDiv.Visible = false;
+                tempConvertDiv.Visible = false;
             }
             else if(serviceDropdown.SelectedIndex == 4)
             {
-                calculatorDiv.Visible = true;
+                tempConvertDiv.Visible = true;
                 footballDiv.Visible = false;
                 countryInformationDiv.Visible = false;
                 movieInformationDiv.Visible = false;
@@ -71,6 +72,7 @@ namespace SOA_Assignment_2
 
         protected void getAllPlayersButton_Click(object sender, EventArgs e)
         {
+            XmlDocument xmlDoc = new XmlDocument();
             string webServiceURL = footballServiceURL;
             string webServiceName = footballServiceName;
             string webMethodName = "AllPlayerNames";
@@ -78,21 +80,59 @@ namespace SOA_Assignment_2
 
             object results = getResult(webServiceURL, webServiceName, webMethodName, arguments);
             string xdoc = SerializeToXml(results);
+            xmlDoc.LoadXml(xdoc);
+
+            XmlNodeList nodes = xmlDoc.GetElementsByTagName("tPlayerNames");
+
+            ArrayList playerNames = new ArrayList();
+
+            foreach (XmlNode node in nodes)
+            {
+                XmlNodeList children = node.ChildNodes;
+
+                foreach(XmlNode child in children)
+                {
+                    if (child.Name == "sName")
+                    {
+                        playerNames.Add(child.InnerText);
+                    }
+                }
+            }
         }
 
         protected void topScorersSubmitButton_Click(object sender, EventArgs e)
         {
+            XmlDocument xmlDoc = new XmlDocument();
             string webServiceURL = footballServiceURL;
             string webServiceName = footballServiceName;
             string webMethodName = "TopGoalScorers";
-            object[] arguments = { topScorerPercentBox.Text.ToString() };
+            object[] arguments = { Convert.ToInt32(topScorerPercentBox.Text.ToString()) };
 
             object results = getResult(webServiceURL, webServiceName, webMethodName, arguments);
             string xdoc = SerializeToXml(results);
+            xmlDoc.LoadXml(xdoc);
+
+            XmlNodeList nodes = xmlDoc.GetElementsByTagName("tTopGoalScorer");
+
+            ArrayList playerNames = new ArrayList();
+
+            foreach (XmlNode node in nodes)
+            {
+                XmlNodeList children = node.ChildNodes;
+
+                foreach (XmlNode child in children)
+                {
+                    if (child.Name == "sName")
+                    {
+                        playerNames.Add(child.InnerText);
+                    }
+                }
+            }
         }
 
         protected void stadiumNamesButton_Click(object sender, EventArgs e)
         {
+            XmlDocument xmlDoc = new XmlDocument();
             string webServiceURL = footballServiceURL;
             string webServiceName = footballServiceName;
             string webMethodName = "StadiumNames";
@@ -100,10 +140,20 @@ namespace SOA_Assignment_2
 
             object results = getResult(webServiceURL, webServiceName, webMethodName, arguments);
             string xdoc = SerializeToXml(results);
+            xmlDoc.LoadXml(xdoc);
+            ArrayList stadiumNames = new ArrayList();
+
+            XmlNodeList nodes = xmlDoc.GetElementsByTagName("string");
+
+            foreach (XmlNode node in nodes)
+            {
+                stadiumNames.Add(node.InnerText);
+            }
         }
 
         protected void getStadiumInfoButton_Click(object sender, EventArgs e)
         {
+            XmlDocument xmlDoc = new XmlDocument();
             string webServiceURL = footballServiceURL;
             string webServiceName = footballServiceName;
             string webMethodName = "StadiumInfo";
@@ -111,17 +161,78 @@ namespace SOA_Assignment_2
 
             object results = getResult(webServiceURL, webServiceName, webMethodName, arguments);
             string xdoc = SerializeToXml(results);
+            xmlDoc.LoadXml(xdoc);
+
+            XmlNodeList stadiumInfo = xmlDoc.GetElementsByTagName("tStadiumInfo");
+
+            foreach (XmlNode node in stadiumInfo)
+            {
+                XmlNodeList children = node.ChildNodes;
+
+                foreach (XmlNode child in children)
+                {
+                    if (child.Name == "sStadiumName")
+                    {
+                        string stadiumName = child.InnerText;
+                    }
+                    else if (child.Name == "iSeatsCapacity")
+                    {
+                        int seatCapacity = Convert.ToInt32(child.InnerText);
+                    }
+                    else if (child.Name == "sCityName")
+                    {
+                        string cityName = child.InnerText;
+                    }
+                    else if (child.Name == "sWikipediaURL")
+                    {
+                        string wikiLink = child.InnerText;
+                    }
+                    else if (child.Name == "sGoogleMapsURL")
+                    {
+                        string mapLink = child.InnerText;
+                    }
+                }
+            }
         }
 
         protected void getTeamInfoButton_Click(object sender, EventArgs e)
         {
+            XmlDocument xmlDoc = new XmlDocument();
             string webServiceURL = footballServiceURL;
             string webServiceName = footballServiceName;
             string webMethodName = "Teams";
             object[] arguments = null;
 
+            ArrayList name = new ArrayList();
+            ArrayList wikiLink = new ArrayList();
+            ArrayList flagLink = new ArrayList();
+
             object results = getResult(webServiceURL, webServiceName, webMethodName, arguments);
             string xdoc = SerializeToXml(results);
+            xmlDoc.LoadXml(xdoc);
+
+            XmlNodeList nodes = xmlDoc.GetElementsByTagName("tTeamInfo");
+
+            foreach (XmlNode node in nodes)
+            {
+                XmlNodeList children = node.ChildNodes;
+
+                foreach (XmlNode child in children)
+                {
+                    if (child.Name == "sName")
+                    {
+                        name.Add(child.InnerText);
+                    }
+                    else if (child.Name == "sWikipediaURL")
+                    {
+                        wikiLink.Add(child.InnerText);
+                    }
+                    else if (child.Name == "sCountryFlagLarge")
+                    {
+                        flagLink.Add(child.InnerText);
+                    }
+                }
+            }
         }
 
         protected void getCountryNamesByNameButton_Click(object sender, EventArgs e)
@@ -192,49 +303,23 @@ namespace SOA_Assignment_2
             string xdoc = SerializeToXml(results);
         }
 
-        protected void addButton_Click(object sender, EventArgs e)
+        protected void convertToFahrenheitButton_Click(object sender, EventArgs e)
         {
-            string webServiceURL = calculatorServiceURL;
-            string webServiceName = calculatorServiceName;
-            string webMethodName = "add";
-            object[] arguments = { float.Parse(firstCalcNumberBox.Text.ToString()),
-                float.Parse(secondCalcNumberBox.Text.ToString()) };
+            string webServiceURL = tempConvertServiceURL;
+            string webServiceName = tempConvertServiceName;
+            string webMethodName = "CelsiusToFahrenheit";
+            object[] arguments = { celciusBox.Text.ToString() };
 
             object results = getResult(webServiceURL, webServiceName, webMethodName, arguments);
             string xdoc = SerializeToXml(results);
         }
 
-        protected void divideButton_Click(object sender, EventArgs e)
+        protected void convertToCelciusButton_Click(object sender, EventArgs e)
         {
-            string webServiceURL = calculatorServiceURL;
-            string webServiceName = calculatorServiceName;
-            string webMethodName = "divide";
-            object[] arguments = { float.Parse(firstCalcNumberBox.Text.ToString()),
-                float.Parse(secondCalcNumberBox.Text.ToString()) };
-
-            object results = getResult(webServiceURL, webServiceName, webMethodName, arguments);
-            string xdoc = SerializeToXml(results);
-        }
-
-        protected void multiplyButton_Click(object sender, EventArgs e)
-        {
-            string webServiceURL = calculatorServiceURL;
-            string webServiceName = calculatorServiceName;
-            string webMethodName = "multiply";
-            object[] arguments = { float.Parse(firstCalcNumberBox.Text.ToString()),
-                float.Parse(secondCalcNumberBox.Text.ToString()) };
-
-            object results = getResult(webServiceURL, webServiceName, webMethodName, arguments);
-            string xdoc = SerializeToXml(results);
-        }
-
-        protected void subtractButton_Click(object sender, EventArgs e)
-        {
-            string webServiceURL = calculatorServiceURL;
-            string webServiceName = calculatorServiceName;
-            string webMethodName = "subtract";
-            object[] arguments = { float.Parse(firstCalcNumberBox.Text.ToString()),
-                float.Parse(secondCalcNumberBox.Text.ToString()) };
+            string webServiceURL = tempConvertServiceURL;
+            string webServiceName = tempConvertServiceName;
+            string webMethodName = "FahrenheitToCelcius";
+            object[] arguments = { fahrenheitBox.Text.ToString() };
 
             object results = getResult(webServiceURL, webServiceName, webMethodName, arguments);
             string xdoc = SerializeToXml(results);
